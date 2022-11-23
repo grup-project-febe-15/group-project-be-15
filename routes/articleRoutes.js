@@ -11,4 +11,4 @@ router.put('/articles/edit/:id',articleController.article_edit_put);
 router.delete('/articles/:id',articleController.article_delete)
 
 
-module.exports = router
+module.exports = router;

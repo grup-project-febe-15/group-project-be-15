@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const articleSchema = new mongoose.Schema({
+const vidioSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
@@ -9,14 +9,17 @@ const articleSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    link: {
+        type: String,
+        required: true
+    },   
     pic: {
         type: String,
         required: true
 
-    }    
-
+    }
 });
 
-const Article = mongoose.model('article', articleSchema);
+const vidio = mongoose.model('vidio', vidioSchema);
 
-module.exports = Article;
+module.exports = vidio;

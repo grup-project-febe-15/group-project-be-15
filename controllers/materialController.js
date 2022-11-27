@@ -1,4 +1,4 @@
-const Material = require('../models/material');
+const Material = require('../models/Material');
 const asyncHandler = require('express-async-handler');
 
  
@@ -56,10 +56,10 @@ module.exports.material_edit = asyncHandler(async (req, res) => {
   });
 
 module.exports.material_delete = asyncHandler(async (req, res) => {
-    const Material = await Material.findById(req.params.id);
+    const material = await Material.findById(req.params.id);
   
-    if (Material) {
-      await material.remove();
+    if (material) {
+      await Material.remove();
       res.status(200).json({ message: "Material Removed" });
     } else {
       res.status(404);

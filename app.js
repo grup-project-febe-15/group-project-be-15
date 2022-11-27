@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes')
 const articleRoutes = require('./routes/articleRoutes')
 const vidioRoutes = require('./routes/vidioRoutes')
+const materialRoutes = require('./routes/materialRoutes')
 const { errorHandler } = require('./middlewares/errorMiddleware')
 const app = express();
 require('dotenv').config();
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGO_URL, {useNewUrlParser:true})
 app.use(userRoutes);
 app.use(articleRoutes);
 app.use(vidioRoutes);
+app.use(materialRoutes);
 app.use(errorHandler);
 
 // start server

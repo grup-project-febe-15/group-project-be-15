@@ -1,10 +1,10 @@
-const Article = require('../models/article');
+const Article = require('../models/Article');
 const asyncHandler = require('express-async-handler');
 
  
 module.exports.article_get = asyncHandler(async (req, res) => {
   const article = await Article.find();
-  res.status(200).json({article:article});
+  res.status(200).json({article});
 });
 
 
@@ -20,13 +20,12 @@ module.exports.article_get_id = asyncHandler(async (req, res) => {
     
   });
 
-
 module.exports.article_post = asyncHandler(async (req, res) => {
     const { title, description, pic } = req.body;
 
   if (!title || !description || !pic) {
     res.status(400);
-    throw new Error("Please Fill all the feilds");
+    throw new Error("Please Fill all the fields");
     return;
   } else {
     const article = new Article({ title, description, pic });

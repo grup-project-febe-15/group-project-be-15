@@ -1,10 +1,10 @@
-const Vidio = require('../models/vidio');
+const Vidio = require('../models/Vidio');
 const asyncHandler = require('express-async-handler');
 
  
 module.exports.vidio_get = asyncHandler(async (req, res) => {
-  const article = await Vidio.find();
-  res.status(200).json({vidio:vidio});
+  const vidio = await Vidio.find();
+  res.status(200).json({vidio});
 });
 
 
@@ -57,9 +57,9 @@ module.exports.vidio_edit = asyncHandler(async (req, res) => {
   });
 
 module.exports.vidio_delete = asyncHandler(async (req, res) => {
-    const Vidio = await Vidio.findById(req.params.id);
+    const vidio = await Vidio.findById(req.params.id);
   
-    if (Vidio) {
+    if (vidio) {
       await vidio.remove();
       res.status(200).json({ message: "Vidio Removed" });
     } else {

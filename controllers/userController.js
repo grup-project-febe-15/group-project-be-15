@@ -140,3 +140,57 @@ module.exports.user_get_id = asyncHandler(async (req, res) => {
       res.status(404).json({ message:  'User not found' });
     }
 })
+
+module.exports.user_post = asyncHandler(async (req, res) => {
+  const { full_name, email, username, password, role, pic } = req.body;
+
+  const emailExists = await User.findOne({ email });
+  const usernameExists = await User.findOne({ username });
+
+  if(!email.match('@')){
+    res.status(400);
+    throw new Error("Please enter a valid email");
+  }
+  if( password.length < 6){
+    res.status(400);
+    throw new Error("Minimum password is 6");
+  }
+  //no fields
+  if (!full_name || !email || !username || !password) {
+    res.status(400);
+    throw new Error("Please Fill all the fields");
+  }
+  //email exist
+  if(emailExists){
+    res.status(400);
+    throw new Error('Email Already Exists');
+  }
+  //username exist
+  if(usernameExists){
+    res.status(400);
+    throw new Error('Username Already Exists');
+  }
+
+  const user = await User.create({
+      full_name, 
+      email, 
+      username, 
+      password, 
+      role, 
+      pic
+  });
+
+  if(user){
+      res.status(201).json({
+          _id: user._id,
+          full_name: user.full_name,
+          email: user.email, 
+          username: user.username,
+          role: user.role,
+          pic: user.pic
+      });
+  }else{
+      res.status(400)
+      throw new Error('User Not Found')
+  }
+});

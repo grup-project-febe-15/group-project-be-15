@@ -81,13 +81,28 @@ module.exports.signin = asyncHandler(async (req, res) => {
     }
   } else {
     res.status(401);
-    throw new Error("Invalid Email or Password");
+    throw new Error("Invalid Username or Password");
   }
 });
 
 module.exports.update_profile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
+    const { email, username } = req.body
+    const emailExists = await User.findOne({email});
+    const usernameExists = await User.findOne({username});
+
     if (user) {
+      //email exist
+      if(emailExists){
+        res.status(400);
+        throw new Error('Email Already Exists');
+      }
+    //username exist
+      if(usernameExists){
+        res.status(400);
+        throw new Error('Username Already Exists');
+      }
+
       user.full_name = req.body.full_name || user.full_name;
       user.email = req.body.email || user.email;
       user.username = req.body.username || user.username;

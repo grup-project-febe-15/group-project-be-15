@@ -43,6 +43,7 @@ module.exports.signup = asyncHandler(async (req, res) => {
 
     if(user){
         res.status(201).json({
+            message: "Berhasil Sign Up",
             _id: user._id,
             full_name: user.full_name,
             email: user.email, 
@@ -64,13 +65,13 @@ module.exports.signin = asyncHandler(async (req, res) => {
   if (user && (await user.matchPassword(password))) {
     if(user.role == 'admin'){
       res.status(200).json({
-        message: 'akan ke halaman admin',
+        message: 'Berhasil Sign In admin',
         user: user,
         token: generateToken(user._id)
       }); 
     }else if(user.role == 'user'){
       res.status(200).json({
-        message: 'akan ke halaman user',
+        message: 'Berhasil Sign In user',
         user: user,
         token: generateToken(user._id)
       });
@@ -87,22 +88,7 @@ module.exports.signin = asyncHandler(async (req, res) => {
 
 module.exports.update_profile = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
-    const { email, username } = req.body
-    const emailExists = await User.findOne({email});
-    const usernameExists = await User.findOne({username});
-
     if (user) {
-      //email exist
-      if(emailExists){
-        res.status(400);
-        throw new Error('Email Already Exists');
-      }
-    //username exist
-      if(usernameExists){
-        res.status(400);
-        throw new Error('Username Already Exists');
-      }
-
       user.full_name = req.body.full_name || user.full_name;
       user.email = req.body.email || user.email;
       user.username = req.body.username || user.username;

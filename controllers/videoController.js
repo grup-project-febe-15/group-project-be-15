@@ -49,10 +49,10 @@ module.exports.video_edit = asyncHandler(async (req, res) => {
       video.pic = pic;
   
       const updatedVideo = await video.save();
-      res.status(200).json({message: "Vidio Update", updatedVideo});
+      res.status(200).json({message: "Video Update", updatedVideo});
     } else {
       res.status(404);
-      throw new Error("Vidio not found");
+      throw new Error("Video not found");
     }
   });
 
@@ -61,9 +61,9 @@ module.exports.video_delete = asyncHandler(async (req, res) => {
   
     if (video) {
       await video.remove();
-      res.status(200).json({ message: "Vidio Removed" });
+      res.status(200).json({ message: "Video Removed" });
     } else {
       res.status(404);
-      throw new Error("Vidio not Found");
+      throw new Error("Video not Found");
     }
   });

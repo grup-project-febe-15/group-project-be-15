@@ -46,7 +46,7 @@ module.exports.material_edit = asyncHandler(async (req, res) => {
       material.pic = pic;
   
       const updatedMaterial = await material.save();
-      res.status(200).json({message: "Material Update", updatedMaterial});
+      res.status(200).json({message: "Material updated", updatedMaterial});
     } else {
       res.status(404);
       throw new Error("Material not found");
@@ -58,7 +58,7 @@ module.exports.material_delete = asyncHandler(async (req, res) => {
   
     if (material) {
       await material.remove();
-      res.status(200).json({ message: "Material Removed" });
+      res.status(200).json({ message: "Material removed" });
     } else {
       res.status(404);
       throw new Error("Material not Found");
